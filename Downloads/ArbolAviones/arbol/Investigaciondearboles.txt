@@ -1,0 +1,245 @@
+Un árbol binario es una estructura de datos jerárquica en la que cada nodo tiene,
+como máximo, dos nodos hijos, que se llaman "izquierdo" y "derecho".
+Cada nodo en un árbol binario tiene un valor, y los nodos a la izquierda de un nodo tienen valores menores,
+mientras que los nodos a la derecha tienen valores mayores.
+
+Un árbol binario tiene una estructura similar a un [árbol invertido],
+donde un nodo se denomina "raíz" y los nodos sin hijos se llaman "hojas".
+Los nodos que comparten un ancestro común se llaman "hermanos".
+
+("árbol invertido binario"): es una estructura de datos que se organiza de manera inversa a un árbol binario tradicional. 
+En este tipo de estructura:
+
+------->>>>Raíz en la parte inferior: A diferencia de un árbol binario convencional, donde la raíz está en la parte superior
+ y los nodos se extienden hacia abajo, en un árbol invertido, la raíz se encuentra en la parte inferior y 
+ los nodos se extienden hacia arriba.
+
+------->>>>Nodos descendentes: Los nodos están conectados de abajo hacia arriba, de manera que cada nodo tiene un padre,
+ pero puede tener varios hijos. Los nodos inferiores son hijos de los nodos superiores.
+
+------->>>>Hojas en la parte superior: Las hojas del árbol (nodos sin hijos) se encuentran en la parte superior
+ de la estructura, y la raíz está en la parte inferior.
+
+
+Algunos conceptos clave asociados con los árboles binarios son:
+
+---->>>>Raíz (Root): Es el nodo superior del árbol y no tiene ningún nodo padre.
+
+EJEMPLO:
+
+class Nodo:
+    def __init__(self, dato):
+        self.dato = dato
+        self.izquierda = None
+        self.derecha = None
+
+# Se crea la raíz
+raiz = Nodo(1)
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+---->>>>Nodo: Cada elemento individual en un árbol se llama nodo. Cada nodo puede tener cero, uno o dos nodos hijos.
+
+
+EJEMPLO:
+
+#Se crea nodos
+nodo1 = Nodo(1)
+nodo2 = Nodo(2)
+nodo3 = Nodo(3)
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+---->>>>Hoja (Leaf): Son los nodos que no tienen nodos hijos. En otras palabras, son los nodos finales en el árbol.
+
+
+EJEMPLO:
+
+#Se crea nodos hoja
+hoja1 = Nodo(1)
+hoja2 = Nodo(2)
+hoja3 = Nodo(3)
+
+# Se asigna nodos hoja como hijos
+raiz.izquierda = hoja1
+raiz.derecha = hoja2
+
+---->>>>Nodo Padre y Nodo Hijo: Un nodo padre es aquel que tiene al menos un nodo hijo. 
+Los nodos hijos son aquellos que tienen un nodo padre.
+
+EJEMPLO:
+
+class Nodo:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.hijos = []
+
+    def agregar_hijo(self, hijo):
+        self.hijos.append(hijo)
+
+#Se crea nodos
+ceo = Nodo("CEO")
+vp_ventas = Nodo("Vicepresidente de Ventas")
+vp_operaciones = Nodo("Vicepresidente de Operaciones")
+vp_finanzas = Nodo("Vicepresidente de Finanzas")
+
+# Establecer relaciones padre-hijo
+ceo.agregar_hijo(vp_ventas)
+ceo.agregar_hijo(vp_operaciones)
+ceo.agregar_hijo(vp_finanzas)
+
+# Imprimir la estructura
+print("Nodo Padre:", ceo.nombre)
+print("Nodos Hijos:")
+for hijo in ceo.hijos:
+    print("-", hijo.nombre)
+
+
+//////////////////////////////////////////////////////////
+---->>>>Nodo Izquierdo y Nodo Derecho: En un árbol binario, cada nodo puede tener hasta dos nodos hijos,
+uno a la izquierda y otro a la derecha.
+
+EJEMPLO:
+
+class NodoBinario:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+#Se crea nodos
+raiz = NodoBinario(1)
+nodo_izquierdo = NodoBinario(2)
+nodo_derecho = NodoBinario(3)
+
+# Establecer relaciones izquierda-derecha
+raiz.izquierdo = nodo_izquierdo
+raiz.derecho = nodo_derecho
+
+# Imprimir la estructura
+print("Raíz:", raiz.valor)
+print("Nodo Izquierdo:", raiz.izquierdo.valor)
+print("Nodo Derecho:", raiz.derecho.valor)
+
+
+///////////////////////////////////////////////////////////
+
+---->>>>Subárbol: Cualquier nodo y todos sus descendientes forman un subárbol.
+
+EJEMPLO:
+
+class NodoBinario:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+#Se crear nodos
+raiz = NodoBinario(1)
+nodo_izquierdo = NodoBinario(2)
+nodo_derecho = NodoBinario(3)
+nodo_izquierdo_izquierdo = NodoBinario(4)
+nodo_izquierdo_derecho = NodoBinario(5)
+
+# Establecer relaciones izquierda-derecha
+raiz.izquierdo = nodo_izquierdo
+raiz.derecho = nodo_derecho
+nodo_izquierdo.izquierdo = nodo_izquierdo_izquierdo
+nodo_izquierdo.derecho = nodo_izquierdo_derecho
+
+# Definir el subárbol a partir del nodo izquierdo
+subarbol = nodo_izquierdo
+
+# Imprimir la estructura del subárbol
+print("Raíz del subárbol:", subarbol.valor)
+print("Nodo Izquierdo del subárbol:", subarbol.izquierdo.valor)
+print("Nodo Derecho del subárbol:", subarbol.derecho.valor)
+
+
+/////////////////////////////////////////////////////////////
+
+---->>>>Inorden:Definición: Recorrido de un árbol en el que primero se visita el subárbol izquierdo,
+ luego el nodo actual y, finalmente, el subárbol derecho.
+Resultado: Produce una secuencia ordenada de elementos, 
+comúnmente utilizada para obtener una representación ordenada de un árbol binario de búsqueda.
+
+EJEMPLO:
+
+class NodoBinario:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+def recorrido_inorden(nodo):
+    if nodo:
+        recorrido_inorden(nodo.izquierdo)
+        print(nodo.valor, end=" ")
+        recorrido_inorden(nodo.derecho)
+
+#Se crea un árbol binario de búsqueda
+raiz = NodoBinario(5)
+raiz.izquierdo = NodoBinario(3)
+raiz.derecho = NodoBinario(8)
+raiz.izquierdo.izquierdo = NodoBinario(2)
+raiz.izquierdo.derecho = NodoBinario(4)
+raiz.derecho.izquierdo = NodoBinario(7)
+raiz.derecho.derecho = NodoBinario(9)
+
+# Realizar el recorrido inorden
+print("Recorrido Inorden:")
+recorrido_inorden(raiz)
+
+
+
+/////////////////////////////////////////////////////////////////////
+
+---->>>>Posorden:Definición: Recorrido de un árbol en el que primero se visita el subárbol izquierdo, luego el subárbol derecho y, finalmente, el nodo actual.
+Resultado: Produce una secuencia que comienza con los nodos hoja, seguidos por nodos intermedios y la raíz al final. Útil para liberar memoria en estructuras de árboles.
+Estos recorridos son fundamentales para comprender la estructura y el contenido de un árbol,
+ ya que proporcionan diferentes perspectivas sobre cómo los nodos están organizados y conectados entre sí.
+
+
+EJEMPLO:
+
+class NodoBinario:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierdo = None
+        self.derecho = None
+
+def recorrido_posorden(nodo):
+    if nodo:
+        recorrido_posorden(nodo.izquierdo)
+        recorrido_posorden(nodo.derecho)
+        print(nodo.valor, end=" ")
+
+#Se crea un árbol binario
+raiz = NodoBinario(1)
+raiz.izquierdo = NodoBinario(2)
+raiz.derecho = NodoBinario(3)
+raiz.izquierdo.izquierdo = NodoBinario(4)
+raiz.izquierdo.derecho = NodoBinario(5)
+raiz.derecho.izquierdo = NodoBinario(6)
+raiz.derecho.derecho = NodoBinario(7)
+
+# Realizar el recorrido posorden
+print("Recorrido Posorden:")
+recorrido_posorden(raiz)
+
+
+//////////////////////////////////////////////////////////////////////////
+
+
+
+
+Los árboles binarios son utilizados en ciencias de la computación y estructuras de datos debido a su capacidad 
+para organizar datos de manera eficiente y realizar operaciones de búsqueda, inserción y eliminación de manera eficaz.
+También se utilizan en la implementación de algoritmos de búsqueda y en la representación de estructuras jerárquicas,
+como los árboles de expresiones en matemáticas o la estructura de archivos en sistemas operativos.
+
+
+
+
+
+
+
